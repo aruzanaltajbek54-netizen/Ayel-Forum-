@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayel Forum — 1 августа, Астана</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wine: #1a0a0f;
+    --wine-mid: #2d1019;
+    --wine-light: #3d1525;
+    --rose: #e8b4b8;
+    --rose-light: #f2d4d7;
+    --gold: #c9a96e;
+    --gold-light: #e8d5b0;
+    --cream: #f5ede8;
+    --text: #f0e8e4;
+    --text-muted: rgba(240,232,228,0.6);
+    --border: rgba(201,169,110,0.25);
+    --border-strong: rgba(201,169,110,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--wine);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* PATTERN BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(232,180,184,0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(201,169,110,0.04) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26,10,15,0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--cream);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rose); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--rose);
+    color: var(--rose);
+    padding: 0.6rem 1.4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover {
+    background: var(--rose);
+    color: var(--wine);
+  }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--rose);
+    transition: all 0.3s;
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 65px; left: 0; right: 0;
+    background: rgba(26,10,15,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 2rem;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 7rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-ornament {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.2s forwards;
+  }
+
+  .hero-ornament svg { width: 180px; opacity: 0.4; }
+
+  .hero-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    line-height: 0.9;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+  }
+
+  .hero-title .line1 {
+    font-size: clamp(5rem, 20vw, 10rem);
+    color: var(--cream);
+    display: block;
+  }
+
+  .hero-title .line2 {
+    font-size: clamp(4rem, 16vw, 8rem);
+    color: var(--rose);
+    font-style: italic;
+    display: block;
+  }
+
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .hero-venue {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+
+  .hero-tags {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.4rem 1rem;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+  }
+
+  .btn-primary {
+    background: var(--rose);
+    color: var(--wine);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--rose-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(232,180,184,0.3);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 1rem 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    background: rgba(201,169,110,0.1);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s 1.5s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    overflow: hidden;
+    padding: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .divider-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+  }
+
+  .divider-inner span {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .divider-dot {
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    opacity: 0.4;
+    flex-shrink: 0;
+  }
+
+  /* ABOUT */
+  .about {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.4;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--cream);
+  }
+
+  .about-quote em { color: var(--rose); font-style: italic; }
+
+  .about-text {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--text-muted);
+  }
+
+  .about-text p { margin-bottom: 1rem; }
+
+  .about-detail {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
+  .stat-item {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--rose);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* THEMES */
+  .themes {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .themes-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .themes-title em { color: var(--rose); font-style: italic; }
+
+  .themes-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .themes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .theme-card {
+    background: var(--wine);
+    padding: 2.5rem 1.5rem;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .theme-card:hover { background: var(--wine-mid); }
+
+  .theme-icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .theme-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .theme-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* PROGRAM */
+  .program {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .program-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .program-title em { color: var(--rose); font-style: italic; }
+
+  .program-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 4rem;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--rose);
+    box-shadow: 0 0 12px rgba(232,180,184,0.4);
+  }
+
+  .timeline-time {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-event {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* VENUE */
+  .venue {
+    padding: 6rem 2rem;
+    background: var(--wine-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .venue-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .venue-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .venue-title em { color: var(--gold); font-style: italic; }
+
+  .venue-name {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .venue-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+  }
+
+  .venue-map {
+    background: var(--wine-light);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+
+  .venue-map svg { opacity: 0.4; }
+
+  /* TICKETS */
+  .tickets {
+    padding: 7rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tickets-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    font-weight: 400;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .tickets-title em { color: var(--rose); font-style: italic; }
+
+  .tickets-sub {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .countdown-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 4rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(232,180,184,0.08);
+    border: 1px solid rgba(232,180,184,0.2);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .countdown-bar .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+    animation: pulse 2s infinite;
+  }
+
+  .countdown-bar span {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+
+  .ticket-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .ticket-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+
+  .ticket-card.featured {
+    border-color: var(--rose);
+    background: rgba(232,180,184,0.04);
+  }
+
+  .ticket-badge {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--rose);
+    color: var(--wine);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    white-space: nowrap;
+  }
+
+  .ticket-type {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .ticket-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .ticket-price sup {
+    font-size: 1.2rem;
+    vertical-align: super;
+    color: var(--rose);
+  }
+
+  .ticket-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .ticket-savings {
+    display: inline-block;
+    background: rgba(232,180,184,0.12);
+    color: var(--rose);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .ticket-features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+
+  .ticket-features li {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .ticket-features li:last-child { border-bottom: none; }
+
+  .feat-check {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(232,180,184,0.15);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--rose);
+    font-size: 0.55rem;
+  }
+
+  .ticket-features li.highlight { color: var(--rose-light); }
+
+  .btn-buy {
+    width: 100%;
+    padding: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+  }
+
+  .btn-buy.primary {
+    background: var(--rose);
+    color: var(--wine);
+  }
+
+  .btn-buy.primary:hover {
+    background: var(--rose-light);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(232,180,184,0.25);
+  }
+
+  .btn-buy.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+
+  .btn-buy.secondary:hover {
+    background: rgba(201,169,110,0.08);
+    transform: translateY(-2px);
+  }
+
+  /* REGISTER FORM */
+  .register {
+    padding: 7rem 2rem;
+    background: var(--wine-mid);
+    border-top: 1px solid var(--border);
+  }
+
+  .register-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .register-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .register-title em { color: var(--rose); font-style: italic; }
+
+  .register-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 1rem 1.2rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.3s;
+    -webkit-appearance: none;
+  }
+
+  .form-group input::placeholder { color: var(--text-muted); }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--rose);
+    background: rgba(232,180,184,0.04);
+  }
+
+  .form-group select option {
+    background: var(--wine-mid);
+    color: var(--text);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 1.2rem;
+    background: var(--rose);
+    border: none;
+    color: var(--wine);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--rose-light);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 50px rgba(232,180,184,0.3);
+  }
+
+  .form-note {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 3rem;
+  }
+
+  .contact-title em { color: var(--rose); font-style: italic; }
+
+  .contact-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 4rem;
+  }
+
+  .contact-card {
+    background: var(--wine);
+    padding: 2.5rem 2rem;
+  }
+
+  .contact-card-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .contact-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-card-title em { color: var(--rose); font-style: italic; }
+
+  .contact-card-desc {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+
+  .btn-contact.whatsapp {
+    border: 1px solid var(--rose);
+    color: var(--rose);
+    background: transparent;
+  }
+
+  .btn-contact.partner {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+  }
+
+  .btn-contact:hover { opacity: 0.75; }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    padding: 8rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-cta-bg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .footer-cta-bg svg {
+    width: 70%;
+    max-width: 500px;
+    opacity: 0.04;
+  }
+
+  .footer-cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .footer-cta-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .footer-logo span { color: var(--rose); font-style: italic; }
+
+  .footer-copy {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* SUCCESS */
+  .success-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,10,15,0.95);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .success-overlay.show { display: flex; }
+
+  .success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid var(--rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: var(--rose);
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .success-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.7); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .themes-grid { grid-template-columns: 1fr 1fr; }
+    .venue-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .ticket-cards { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-cards { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .footer-links { flex-wrap: wrap; }
+  }
+
+  @media (max-width: 480px) {
+    .themes-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">Ayel <span>Forum</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">О форуме</a></li>
+    <li><a href="#themes">Темы</a></li>
+    <li><a href="#program">Программа</a></li>
+    <li><a href="#tickets">Билеты</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+  <a href="#tickets" class="nav-cta">Купить билет</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">О форуме</a>
+  <a href="#themes" onclick="closeMenu()">Темы</a>
+  <a href="#program" onclick="closeMenu()">Программа</a>
+  <a href="#tickets" onclick="closeMenu()">Билеты</a>
+  <a href="#tickets" onclick="closeMenu()">Купить билет</a>
+  <a href="#contact" onclick="closeMenu()">Контакты</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament">
+    <svg viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="20" x2="70" y2="20" stroke="#c9a96e" stroke-width="0.5"/>
+      <polygon points="100,5 115,20 100,35 85,20" stroke="#c9a96e" stroke-width="0.5" fill="none"/>
+      <polygon points="100,10 110,20 100,30 90,20" stroke="#c9a96e" stroke-width="0.5" fill="none"/>
+      <line x1="130" y1="20" x2="200" y2="20" stroke="#c9a96e" stroke-width="0.5"/>
+    </svg>
+  </div>
+  <div class="hero-label">Однодневный многогранный женский форум</div>
+  <div class="hero-title">
+    <span class="line1">Ayel</span>
+    <span class="line2">Forum</span>
+  </div>
+  <div class="hero-date">1 августа 2026</div>
+  <div class="hero-venue">Hilton Garden Inn · Астана</div>
+  <div class="hero-tags">
+    <span class="tag">Спикеры</span>
+    <span class="tag">Йога</span>
+    <span class="tag">Нетворкинг</span>
+    <span class="tag">Вечеринка</span>
+  </div>
+  <div class="hero-btns">
+    <a href="#tickets" class="btn-primary">Купить билет</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Узнать больше</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="divider" style="background: var(--wine-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden;">
+  <div class="divider-inner">
+    <span>Самозащита</span><div class="divider-dot"></div>
+    <span>Карьера</span><div class="divider-dot"></div>
+    <span>Тело</span><div class="divider-dot"></div>
+    <span>Психология</span><div class="divider-dot"></div>
+    <span>Нумерология</span><div class="divider-dot"></div>
+    <span>1 Августа</span><div class="divider-dot"></div>
+    <span>Астана</span><div class="divider-dot"></div>
+    <span>Hilton Garden Inn</span><div class="divider-dot"></div>
+    <span>Самозащита</span><div class="divider-dot"></div>
+    <span>Карьера</span><div class="divider-dot"></div>
+    <span>Тело</span><div class="divider-dot"></div>
+    <span>Психология</span><div class="divider-dot"></div>
+    <span>Нумерология</span><div class="divider-dot"></div>
+    <span>1 Августа</span><div class="divider-dot"></div>
+    <span>Астана</span><div class="divider-dot"></div>
+    <span>Hilton Garden Inn</span><div class="divider-dot"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label reveal">О форуме</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-quote">
+        Женщина — это <em>несколько ролей.</em> Но где внутри них — она сама?
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-text">
+        <p>Ayel Forum — однодневный форум для женщин, которые хотят развиваться сразу в нескольких направлениях.</p>
+        <p>4 спикера. 5 тем. Йога с утра, нетворкинг и вечеринка в финале. Один день — много инсайтов и новых знакомств.</p>
+      </div>
+      <div class="about-detail">
+        1 августа 2026 · Астана · Hilton Garden Inn
+      </div>
+    </div>
+  </div>
+
+  <div class="stats reveal" style="margin-top: 4rem;">
+    <div class="stat-item">
+      <span class="stat-num">4</span>
+      <span class="stat-label">Спикера</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Тем форума</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">1</span>
+      <span class="stat-label">Незабываемый день</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Новых знакомств</span>
+    </div>
+  </div>
+</section>
+
+<!-- THEMES -->
+<section class="themes" id="themes">
+  <div class="section-label reveal">Темы форума</div>
+  <div class="themes-title reveal">Пять направлений <em>одного дня</em></div>
+  <div class="themes-sub reveal">Каждая тема — отдельный инсайт. Все вместе — новый взгляд на себя.</div>
+  <div class="themes-grid reveal">
+    <div class="theme-card">
+      <svg class="theme-icon" viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="1">
+        <polygon points="18,2 22,12 34,12 24,19 28,31 18,24 8,31 12,19 2,12 14,12"/>
+      </svg>
+      <div class="theme-name">Самозащита</div>
+      <div class="theme-desc">Практические навыки безопасности и уверенности в себе</div>
+    </div>
+    <div class="theme-card">
+      <svg class="theme-icon" viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="1">
+        <circle cx="18" cy="18" r="14"/>
+        <line x1="18" y1="4" x2="18" y2="32"/>
+        <line x1="4" y1="18" x2="32" y2="18"/>
+        <line x1="8" y1="8" x2="28" y2="28"/>
+        <line x1="28" y1="8" x2="8" y2="28"/>
+      </svg>
+      <div class="theme-name">Карьера</div>
+      <div class="theme-desc">Как строить путь к цели без ущерба для себя</div>
+    </div>
+    <div class="theme-card">
+      <svg class="theme-icon" viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="1">
+        <circle cx="18" cy="18" r="14"/>
+        <circle cx="18" cy="18" r="8"/>
+        <circle cx="18" cy="18" r="2"/>
+      </svg>
+      <div class="theme-name">Тело</div>
+      <div class="theme-desc">Здоровье, энергия и осознанная связь с собой</div>
+    </div>
+    <div class="theme-card">
+      <svg class="theme-icon" viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="1">
+        <path d="M18 4 L32 18 L18 32 L4 18 Z"/>
+        <path d="M18 10 L26 18 L18 26 L10 18 Z"/>
+        <circle cx="18" cy="18" r="2"/>
+      </svg>
+      <div class="theme-name">Психология</div>
+      <div class="theme-desc">Эмоциональный ресурс, границы и внутренняя устойчивость</div>
+    </div>
+    <div class="theme-card">
+      <svg class="theme-icon" viewBox="0 0 36 36" fill="none" stroke="#c9a96e" stroke-width="1">
+        <circle cx="18" cy="18" r="14"/>
+        <path d="M18 8 Q22 13 18 18 Q14 23 18 28"/>
+        <circle cx="18" cy="8" r="1.5" fill="#c9a96e"/>
+        <circle cx="18" cy="28" r="1.5" fill="#c9a96e"/>
+      </svg>
+      <div class="theme-name">Нумерология</div>
+      <div class="theme-desc">Числа как инструмент понимания себя и своего пути</div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER 2 -->
+<div style="border-top: 1px solid var(--border);"></div>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+  <div class="section-label reveal">Программа дня</div>
+  <div class="program-title reveal">1 августа — <em>с утра до ночи</em></div>
+  <div class="program-sub reveal">Насыщенный день, который останется в памяти надолго</div>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-time">Утро</div>
+      <div class="timeline-event">Йога-сессия</div>
+      <div class="timeline-desc">Открываем день практикой — дыхание, тело, фокус. Настраиваемся на лучшее.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">День</div>
+      <div class="timeline-event">4 спикера — 5 тем</div>
+      <div class="timeline-desc">Выступления по темам самозащиты, карьеры, тела, психологии и нумерологии. Живые истории, практические инструменты, честные разговоры.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Вечер</div>
+      <div class="timeline-event">Фуршет и нетворкинг</div>
+      <div class="timeline-desc">Лёгкие закуски, общение с участницами и спикерами в неформальной обстановке. Новые знакомства рождаются здесь.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-time">Ночь</div>
+      <div class="timeline-event">Вечеринка</div>
+      <div class="timeline-desc">Завершение дня — музыка, атмосфера, яркий финал. Потому что ты это заслуживаешь.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="venue" id="venue">
+  <div class="venue-inner">
+    <div class="reveal">
+      <div class="section-label">Место проведения</div>
+      <div class="venue-title">Где это <em>происходит</em></div>
+      <div class="venue-name">Hilton Garden Inn · Астана</div>
+      <div class="venue-desc">
+        Форум пройдёт в одном из лучших отелей Астаны. Просторные залы, безупречный сервис, атмосфера, достойная особенного дня.
+      </div>
+      <a href="https://www.google.com/maps/search/Hilton+Garden+Inn+Astana" class="btn-outline" target="_blank" style="font-size: 0.65rem;">
+        Посмотреть на карте →
+      </a>
+    </div>
+    <div class="venue-map reveal">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+        <circle cx="12" cy="9" r="2.5"/>
+      </svg>
+      <span style="font-size: 0.65rem; letter-spacing: 0.1em;">Hilton Garden Inn, Астана</span>
+      <span style="font-size: 0.6rem; color: var(--text-muted);">1 августа 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- TICKETS -->
+<section class="tickets" id="tickets">
+  <div class="section-label reveal" style="justify-content: center;">Стоимость участия</div>
+  <div class="tickets-title reveal">Выбери <em>свой билет</em></div>
+  <div class="tickets-sub reveal">Включено всё — от йоги утром до вечеринки ночью</div>
+
+  <div class="countdown-bar reveal">
+    <div class="dot"></div>
+    <span>Ранняя бронь доступна до 30 июня</span>
+  </div>
+
+  <div class="ticket-cards">
+    <div class="ticket-card featured reveal">
+      <div class="ticket-badge">Ранняя бронь</div>
+      <div class="ticket-type">До 30 июня</div>
+      <div class="ticket-price"><sup>₸</sup>39 000</div>
+      <div class="ticket-note">Только до 30 июня</div>
+      <div class="ticket-savings">Экономия 11 000 ₸</div>
+      <ul class="ticket-features">
+        <li><span class="feat-check">✓</span> Участие в форуме</li>
+        <li><span class="feat-check">✓</span> Йога-сессия с утра</li>
+        <li><span class="feat-check">✓</span> 4 выступления спикеров</li>
+        <li class="highlight"><span class="feat-check">✓</span> Фуршет</li>
+        <li><span class="feat-check">✓</span> Нетворкинг</li>
+        <li><span class="feat-check">✓</span> Завершающая вечеринка</li>
+      </ul>
+      <button class="btn-buy primary" onclick="openRegister('39000')">Купить за 39 000 ₸</button>
+    </div>
+
+    <div class="ticket-card reveal">
+      <div class="ticket-type">Стандартный</div>
+      <div class="ticket-price"><sup>₸</sup>50 000</div>
+      <div class="ticket-note">После 30 июня</div>
+      <div style="height: 2rem;"></div>
+      <ul class="ticket-features">
+        <li><span class="feat-check">✓</span> Участие в форуме</li>
+        <li><span class="feat-check">✓</span> Йога-сессия с утра</li>
+        <li><span class="feat-check">✓</span> 4 выступления спикеров</li>
+        <li class="highlight"><span class="feat-check">✓</span> Фуршет</li>
+        <li><span class="feat-check">✓</span> Нетворкинг</li>
+        <li><span class="feat-check">✓</span> Завершающая вечеринка</li>
+      </ul>
+      <button class="btn-buy secondary" onclick="openRegister('50000')">Купить за 50 000 ₸</button>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER FORM -->
+<section class="register" id="register">
+  <div class="register-inner">
+    <div class="section-label reveal" style="justify-content: center;">Регистрация</div>
+    <div class="register-title reveal">Купи <em>билет</em></div>
+    <div class="register-sub reveal">Заполни форму — мы свяжемся с тобой для подтверждения и оплаты</div>
+
+    <div id="regForm" class="reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" id="fname" placeholder="Имя" required>
+        </div>
+        <div class="form-group">
+          <input type="text" id="lname" placeholder="Фамилия" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="tel" id="phone" placeholder="Номер телефона (WhatsApp)" required>
+      </div>
+      <div class="form-group">
+        <input type="email" id="email" placeholder="Email адрес">
+      </div>
+      <div class="form-group">
+        <select id="ticket">
+          <option value="" disabled selected>Тип билета</option>
+          <option value="early">Ранняя бронь — 39 000 ₸</option>
+          <option value="standard">Стандартный — 50 000 ₸</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <input type="text" id="source" placeholder="Откуда узнали о форуме? (необязательно)">
+      </div>
+      <button class="form-submit" onclick="submitForm()">Купить билет — отправить заявку</button>
+      <div class="form-note">После регистрации мы напишем вам в WhatsApp для подтверждения и оплаты</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label reveal">Связь с нами</div>
+  <div class="contact-title reveal">Остались <em>вопросы?</em></div>
+
+  <div class="contact-cards reveal">
+    <div class="contact-card">
+      <div class="contact-card-label">Вопросы об участии</div>
+      <div class="contact-card-title">Всё расскажем <em>в WhatsApp</em></div>
+      <div class="contact-card-desc">Программа, спикеры, билеты — ответим на любой вопрос в течение часа</div>
+      <a href="https://wa.me/77058564151" class="btn-contact whatsapp" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.565 4.14 1.548 5.878L0 24l6.326-1.522A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.87 0-3.625-.485-5.154-1.335L2.5 21.5l.854-4.213A9.941 9.941 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Написать нам
+      </a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-card-label">Партнёрство</div>
+      <div class="contact-card-title">Стать <em>партнёром</em></div>
+      <div class="contact-card-desc">Хотите стать партнёром форума — напишите нам, обсудим условия сотрудничества</div>
+      <a href="https://wa.me/77058564151?text=Хочу%20стать%20партнёром%20Ayel%20Forum" class="btn-contact partner" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Обсудить партнёрство
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="footer-cta-bg">
+    <svg viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="120" fill="#e8b4b8">A</text>
+    </svg>
+  </div>
+  <div class="footer-cta-title reveal">Ты заслуживаешь этого дня</div>
+  <div class="footer-cta-sub reveal">1 августа · Астана · Ayel Forum</div>
+  <div style="position: relative;">
+    <a href="#tickets" class="btn-primary reveal">Купить билет</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ayel <span>Forum</span></div>
+  <div class="footer-copy">© 2026 Ayel Forum · 1 августа, Астана</div>
+  <div class="footer-links">
+    <a href="#">Условия</a>
+    <a href="#">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">✓</div>
+  <div class="success-title">Заявка принята!</div>
+  <div class="success-sub">Мы свяжемся с тобой в WhatsApp<br>в течение нескольких часов для подтверждения</div>
+  <button class="btn-primary" onclick="document.getElementById('successOverlay').classList.remove('show')">Закрыть</button>
+</div>
+
+<script>
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // NAV SCROLL
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      nav.style.padding = '0.8rem 2rem';
+    } else {
+      nav.style.padding = '1.2rem 2rem';
+    }
+  });
+
+  // MOBILE MENU
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // OPEN REGISTER WITH TICKET PRE-SELECTED
+  function openRegister(price) {
+    document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      const sel = document.getElementById('ticket');
+      if (price === '39000') sel.value = 'early';
+      else sel.value = 'standard';
+    }, 700);
+  }
+
+  // FORM SUBMIT
+  function submitForm() {
+    const fname = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const ticket = document.getElementById('ticket').value;
+
+    if (!fname || !phone || !ticket) {
+      alert('Пожалуйста, заполни обязательные поля: Имя, Телефон и Тип билета');
+      return;
+    }
+
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const source = document.getElementById('source').value.trim();
+    const ticketLabel = ticket === 'early' ? '39 000 ₸ (Ранняя бронь)' : '50 000 ₸ (Стандартный)';
+
+    // SAVE TO CRM (localStorage — shared with CRM page on same device)
+    try {
+      const CRM_KEY = 'ayel_crm_leads_v2';
+      const existing = JSON.parse(localStorage.getItem(CRM_KEY) || '[]');
+      const lead = {
+        id: Date.now().toString(),
+        fname, lname, phone, email,
+        ticket, source: source || 'Сайт',
+        status: 'new',
+        notes: '',
+        date: new Date().toISOString()
+      };
+      existing.unshift(lead);
+      localStorage.setItem(CRM_KEY, JSON.stringify(existing));
+    } catch(e) {}
+
+    const msg = encodeURIComponent(
+      `Привет! Хочу зарегистрироваться на Ayel Forum.\n\nИмя: ${fname} ${lname}\nТелефон: ${phone}\nEmail: ${email}\nБилет: ${ticketLabel}`
+    );
+
+    // Show success + open WhatsApp
+    document.getElementById('successOverlay').classList.add('show');
+    setTimeout(() => {
+      window.open(`https://wa.me/77058564151?text=${msg}`, '_blank');
+    }, 1000);
+  }
+</script>
+</body>
+</html>
